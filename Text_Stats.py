@@ -9,7 +9,13 @@ class Text_Stats(object):
         """
 
         char_count = str(len(text))
+
+        #do not let this be a permanent solution!
+        vowels = ['a','e','i','o','u','A','E','I','O','U']
+        consonants = ['b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','y','z','B','C','D','F','G','H','J','K','L','M','N','P','Q','R','S','T','V','W','X','Y','Z']
                
+        vowel_count = 0
+        consonant_count = 0
 
         #count first word if text is not empty and contains letters
         if len(text) > 0 and re.search('[a-zA-Z]', text):
@@ -23,7 +29,14 @@ class Text_Stats(object):
             if i == " " and text[text.index(i)-1] != " " and text.index(i) != 0:
                 word_count += 1
 
-        return "Character count: " + char_count + "\n Word count: " + str(word_count)
+            if i in vowels:
+                vowel_count += 1
+
+            if i in consonants:
+                consonant_count += 1
+
+
+        return "Character count: " + char_count + "\nWord count: " + str(word_count) + "\nVowel count: " + str(vowel_count) + "\nConsonant count: " + str(consonant_count)
 
 
 text_stats_instance = Text_Stats()
