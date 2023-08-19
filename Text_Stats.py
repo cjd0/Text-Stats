@@ -42,8 +42,7 @@ class Text_Stats(object):
                 non_space_count += 1
 
 
-        return ("Character count: " + char_count + "\nWord count: " + str(word_count) + "\nVowel count: " + str(vowel_count) + "\nConsonant count: " + str(consonant_count) + 
-                "\nAverage word length: " + str(float(non_space_count/word_count)))
+        return (f"Character count: {char_count}\nWord count: {str(word_count)}\nVowel count: {str(vowel_count)}\nConsonant count: {str(consonant_count)}\nAverage word length: {str(float(non_space_count/word_count))}")
 
 
 text_stats_instance = Text_Stats()
