@@ -8,44 +8,45 @@ class Text_Stats(object):
         :rtype: string
         """
 
+        #number of characters
         char_count = str(len(text))
 
-        #used for average word length calculation
-        non_space_count = 0
-
-        #lists for vowel/consonant check
-        vowels = ['a','e','i','o','u','A','E','I','O','U']
-        consonants = ['b','c','d','f','g','h','j','k','l','m','n','p','q','r','s','t','v','w','x','y','z','B','C','D','F','G','H','J','K','L','M','N','P','Q','R','S','T','V','W','X','Y','Z']
-               
+        
+        #initialise count variables
         vowel_count = 0
         consonant_count = 0
         letter_count = 0
         digit_count = 0
         punctuation_count = 0
-        avg_word_length = 0
-
+        word_count = 0
+        non_space_count = 0
+        avg_word_length = 0        
+        
+        #define regex patterns and compile each once for more efficient character analysis
+        #also account for accented latin alphabet letters
+        vowel_pattern = re.compile(r'[aeiouáéíóúAEIOUÁÉÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜ]')
+        consonant_pattern = re.compile(r'[bcčçdfgġhjklłmnňpqrsštŧvwxyzźżBCČÇDFGĠHJKLŁMNŇPQRSŠTŦVWXYZŹŻ]')
+        digit_pattern = re.compile(r'[0123456789]')
 
         #count first word if text is not empty and contains letters
         if len(text) > 0:
-            if re.search('[a-zA-Z]', text):
+            if vowel_pattern.search(text) or consonant_pattern.search(text):
                 word_count = 1
-        else:
-            word_count = 0
 
         for i in text:
-                        
+            
             #count each space as long as it is not preceded by a space and is not the first character
             if i == " " and text[text.index(i)-1] != " " and text.index(i) != 0:
                 word_count += 1
 
             #vowel/consonant/letter/digit/punctuation counts
-            if i in vowels:
+            if vowel_pattern.match(i):
                 vowel_count += 1
                 letter_count += 1
-            elif i in consonants:
+            elif consonant_pattern.match(i):
                 consonant_count += 1
                 letter_count += 1
-            elif i in [str(0),str(1),str(2),str(3),str(4),str(5),str(6),str(7),str(8),str(9)]:
+            elif digit_pattern.match(i):
                 digit_count += 1
             else:
                 punctuation_count += 1
