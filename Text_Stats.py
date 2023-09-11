@@ -20,7 +20,10 @@ class Text_Stats(object):
         punctuation_count = 0
         word_count = 0
         non_space_count = 0
-        avg_word_length = 0        
+        avg_word_length = 0
+
+        #used in word count calculation, initialise as a space so it never counts the first character as a word
+        last_char = " "
         
         #define regex patterns and compile each once for more efficient character analysis
         #also account for accented latin alphabet letters
@@ -35,9 +38,12 @@ class Text_Stats(object):
 
         for i in text:
             
-            #count each space as long as it is not preceded by a space and is not the first character
-            if i == " " and text[text.index(i)-1] != " " and text.index(i) != 0:
+            #count each space as long as it is not preceded by a space
+            if i == " " and last_char != " ":
                 word_count += 1
+
+            #update for comparison with next character
+            last_char = i
 
             #vowel/consonant/letter/digit/punctuation counts
             if vowel_pattern.match(i):
