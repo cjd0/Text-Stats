@@ -22,6 +22,7 @@ class Text_Stats(object):
         letter_count = 0
         digit_count = 0
         punctuation_count = 0
+        avg_word_length = 0
 
 
         #count first word if text is not empty and contains letters
@@ -44,7 +45,7 @@ class Text_Stats(object):
             elif i in consonants:
                 consonant_count += 1
                 letter_count += 1
-            elif i in [str(1),str(2),str(3),str(4),str(5),str(6),str(7),str(8),str(9)]:
+            elif i in [str(0),str(1),str(2),str(3),str(4),str(5),str(6),str(7),str(8),str(9)]:
                 digit_count += 1
             else:
                 punctuation_count += 1
@@ -55,11 +56,13 @@ class Text_Stats(object):
                 non_space_count += 1
 
             
-
-
+        #check to prevent division by 0
+        if word_count > 0:
+            avg_word_length = str(float(non_space_count/word_count))
+        
         return (f"Character count: {char_count}\nWord count: {str(word_count)}\nVowel count: {str(vowel_count)}\nConsonant count: {str(consonant_count)}\n" 
                 + f"Letter count: {letter_count}\nDigit count: {digit_count}\nPunctuation count: {punctuation_count}\n" 
-                + f"Average word length: {str(float(non_space_count/word_count))}")
+                + f"Average word length: {avg_word_length}")
 
 
 text_stats_instance = Text_Stats()
